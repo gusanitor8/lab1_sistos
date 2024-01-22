@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
 
 int main(int argc, char* argv[]){
 	int file_descriptor = -1;
@@ -42,7 +43,9 @@ int main(int argc, char* argv[]){
 	// agregegamos el null terminator en su ultimo indice
 	buffer[bytesRead] = '\0';
 
-	write(file_descriptor_dest, buffer, sizeof(buffer));
+	int textLen = strlen(buffer);
+	ssize_t bytesWritten = write(file_descriptor_dest, buffer, textLen);
 
+	printf("bytes escritos: %d\n", (int) bytesWritten);
 	return(0);
 }
